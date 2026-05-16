@@ -1180,6 +1180,62 @@ const MATCHUPS = [
     runes: "Conqueror — sustain vence o matchup",
   },
 
+{
+    id: 16,
+    name: "Taliyah",
+    role: "Mago",
+    types: ["mage", "hard"],
+    difficulty: "hard",
+    lane: "mid",
+    tip: "Taliyah é um mago que se destaca em teamfights com seu controle de área, sua ultimate não é tão boa para o Sylas, mas o controle de terreno que ela oferece pode ser vantajoso.",
+    ult: "Muro da Tecelã (R)",
+    ultValue: "BAIXO-MEDIO — flanco para ganks e teamfights + enorme controle de terreno. Pouco util para o Sylas.",
+    tips: [
+      { bold: "Seu sustain vence dela", text: " — Taliyah tem dano mas sem cura real. Você regenera com E em teamfights ou trocas curtas." },
+      { bold: "Caso Roube o R dela", text: " — use para cercar ou afastar o time inimigo ou parar arautos." },
+      { bold: "All-in quando Terra Desfiada estiver em CD", text: " — o efeito da Terra Desfiada faz com que você não possa se mover com seu E. Espere." },
+      { bold: "Muito cuidado ao usar Correntes (E)", text: " — ela pode prever o uso das correntes e te punir. Não use para iniciar." },
+      { bold: "Ou bursta ou esquece", text: " — taliyah tem muita oportunidade de dar outplay no sylas se conseguir reagir, caso você não mate ela no engage, ela pode fugir muito facilmente ou no pior dos casos te matar." }
+    ],
+    abilities: [
+      { key: "R FRACO PARA SYLAS", effect: "Bom para o controle de área mas pouco eficaz em teamfights, Pouco impacto com AP." },
+      { key: "VOLEIO ENTRELAÇANTE (Q)", effect: "Fora do terreno manipulado arremessa uma rajada de pedras em movimento e dentro do terreno arremessa uma só que crita e da slow. Fique atrás dos minions para induzi-la a ela puxar a wave." },
+      { key: "TERRA DESFIADA (E)", effect: "Slow + dano. Se der qualquer dash em cima do tapete dela, vai tomar cc, use seu E com cuidado na laning fase." },
+      { key: "EMPURRÃO SISMICO (W)", effect: "Ela só vai usar para engage com o E ou desengage no proprio pé. Se você tomar acabou a trade, baite a skill para engagar." }
+    ],
+    spikes: [{ label: "Nível 3", type: "late" }, { label: "Nível 6", type: "mid" }, { label: "Seraph/Rylai", type: "mid" }],
+    weakness: ["Fraca sem W acertando", "Dependente do Tapete", "Menos sustain que Sylas"],
+    runes: "Eletrocutar — burst vence o matchup",
+  },
+
+  {
+    id: 17,
+    name: "Talon",
+    role: "Assassino",
+    types: ["assassin", "hard"],
+    difficulty: "hard",
+    lane: "mid",
+    tip: "Talon é um assassino que se destaca em engages e escapes,então sua ultimate é muito eficaz no sylas para limpar carries no late game e se reposicionar, mesmo não escalando com AP.",
+    ult: "SOMBRA DO ASSASSINO (R)",
+    ultValue: "BAIXO-MEDIO — flanco para ganks e teamfights + Reposicionamento + burst.",
+    tips: [
+      { bold: "Cuidado com a passiva no early game", text: " — O foco do Talon é acertar o W (as duas vias) e o Q para estourar a passiva (Corte de Lâmina). Se ele pegar 3 marcas em você, saia da troca antes do ataque básico dele." },
+      { bold: "Caso Roube o R dele", text: " — Use para iniciar lutas de surpresa pelos flancos ou para ficar invisível e ganhar tempo para o tempo de recarga (CD) das suas habilidades voltar." },
+      { bold: "Desvie do W (Ancinho) na volta", text: " — A ida do W dele dá pouco dano e lentidão, mas a volta dá muito mais dano e aplica a segunda marca. Desvie para os lados ou use seu E (Abduzir) para desviar e contra-atacar." },
+      { bold: "Acompanhe o Roaming", text: " — O Talon vai tentar puxar a onda de minions e sumir do mapa usando o E para pular paredes. Use pings de mia constantemente e tente acompanhar se tiver visão segura, ou puna empurrando a rota." },
+      { bold: "Lute depois do nível 6", text: " — O sustain do seu W (Regorjeito) em lutas longas costuma vencer o Talon se você sobreviver ao burst inicial dele, caso ele não tenha corta cura ou ignite up. Use o roubo de ult a seu favor." }
+    ],
+    abilities: [
+      { key: "DIPLOMACIA NOXIANA (Q)", effect: "Se usado de longe, ele avança em você. Se usado corpo a corpo, garante acerto crítico. Tente manter uma distância segura quando suas habilidades principais estiverem em recarga." },
+      { key: "ANCINHO (W)", effect: "Habilidade principal dele para limpar a rota e dar poke. Fique atento ao padrão de lançamento. Se ele gastar o W nos minions, é sua janela perfeita para dar engage com o E." },
+      { key: "CAMINHO DO ASSASSINO (E)", effect: "Não dá dano, serve apenas para pular paredes. Ele tem um tempo de recarga longo por parede individual. Fique atento aos flancos na rota perto das paredes do mid." },
+      { key: "SOMBRA DO ASSASSINO (R)", effect: "Permite que ele se torne invisível e se reposicione, além de dar um burst de dano. Use o roubo de ult para surpreender o time inimigo ou para escapar de situações perigosas." }
+    ],
+    spikes: [{ label: "Nível 2/3", type: "early" }, { label: "Nível 6", type: "mid" }, { label: "Youmuu's/Húbris", type: "mid" }],
+    weakness: ["Previsível sem paredes por perto", "Decai se não pegar abates no early game (Roamings)", "Menos sustain que Sylas", "Vulnerável a controles de grupo (CC) pesados após o engage"],
+    runes: "Eletrocutar ou Conquistador – Conquistador ajuda a vencer trocas longas contra ele, enquanto Eletrocutar devolve o burst na mesma moeda.",
+  },
+
   // ── TOP LANE ──
   {
     id: 16,

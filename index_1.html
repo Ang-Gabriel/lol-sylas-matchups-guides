@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sylas — Guia de Matchups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Raleway:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dim: #7a6130;
+    --chain: #8ab4d4;
+    --chain-glow: #4a8abf;
+    --bg-deep: #050810;
+    --bg-mid: #0a0e1a;
+    --bg-card: #0d1220;
+    --bg-card-hover: #121829;
+    --text-main: #e8e0d0;
+    --text-muted: #7a7265;
+    --text-dim: #4a4538;
+    --red-accent: #8b2020;
+    --red-bright: #c0392b;
+    --purple-mid: #6a3fa0;
+    --purple-bright: #9b6ee0;
+    --border-subtle: rgba(201,168,76,0.15);
+    --border-strong: rgba(201,168,76,0.4);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text-main);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Background atmosphere ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(106,63,160,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 80% 80%, rgba(139,32,32,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 50% at 10% 60%, rgba(74,138,191,0.06) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── Header ── */
+  header {
+    padding: 60px 0 40px;
+    text-align: center;
+    position: relative;
+  }
+
+  .chain-line {
+    position: absolute;
+    top: 50%;
+    left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim), var(--gold), var(--gold-dim), transparent);
+    opacity: 0.4;
+  }
+
+  .crown {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(38px, 6vw, 68px);
+    font-weight: 700;
+    color: var(--gold-light);
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 8px;
+    text-shadow: 0 0 60px rgba(201,168,76,0.3);
+  }
+
+  h1 span {
+    color: var(--text-muted);
+    font-size: 0.45em;
+    display: block;
+    font-weight: 400;
+    letter-spacing: 8px;
+    margin-top: 4px;
+  }
+
+  .tagline {
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 13px;
+    letter-spacing: 1px;
+    margin-top: 16px;
+  }
+
+  /* ── Search ── */
+  .search-section {
+    padding: 32px 0 48px;
+  }
+
+  .search-wrapper {
+    position: relative;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  #search-input {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    color: var(--text-main);
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 16px 20px 16px 48px;
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.5px;
+  }
+
+  #search-input::placeholder { color: var(--text-dim); }
+
+  #search-input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.08), inset 0 0 20px rgba(201,168,76,0.03);
+  }
+
+  .search-tags-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .search-tags-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .tags-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    white-space: nowrap;
+    min-width: 36px;
+    text-align: right;
+  }
+
+  .tags-divider {
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 0 auto;
+    width: 60%;
+  }
+
+  .search-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag.tag-mid { border-color: rgba(201,168,76,0.3); color: var(--gold-dim); }
+  .tag.tag-mid:hover, .tag.tag-mid.active { border-color: var(--gold); color: var(--gold-light); background: rgba(201,168,76,0.08); }
+  .tag.tag-top { border-color: rgba(155,110,224,0.3); color: #7a50c0; }
+  .tag.tag-top:hover, .tag.tag-top.active { border-color: var(--purple-bright); color: var(--purple-bright); background: rgba(155,110,224,0.08); }
+
+  .tag {
+    background: transparent;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    font-family: 'Raleway', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 5px 12px;
+    border-radius: 1px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .tag:hover, .tag.active {
+    border-color: var(--gold-dim);
+    color: var(--gold-light);
+    background: rgba(201,168,76,0.05);
+  }
+
+  /* ── Results count ── */
+  .results-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 20px;
+    border-bottom: 1px solid var(--border-subtle);
+    margin-bottom: 28px;
+  }
+
+  .results-count {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .results-count strong {
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  .sort-select {
+    background: transparent;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    font-family: 'Raleway', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 6px 12px;
+    border-radius: 1px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .sort-select option { background: var(--bg-mid); }
+
+  /* ── Matchup Grid ── */
+  .matchup-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .matchup-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 2px;
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 0.3s ease both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .matchup-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .matchup-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+  }
+
+  .matchup-card:hover::before { opacity: 1; }
+
+  .card-favorable::before { background: linear-gradient(90deg, var(--chain-glow), var(--purple-bright)); }
+  .card-neutral::before { background: linear-gradient(90deg, var(--gold-dim), var(--gold)); }
+  .card-hard::before { background: linear-gradient(90deg, var(--red-accent), var(--red-bright)); }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .champion-info { flex: 1; }
+
+  .champion-name {
+    font-family: 'Cinzel', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--gold-light);
+    margin-bottom: 2px;
+  }
+
+  .champion-role {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .difficulty-badge {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 1px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .badge-favorable { background: rgba(74,138,191,0.15); color: var(--chain); border: 1px solid rgba(74,138,191,0.3); }
+  .badge-neutral { background: rgba(201,168,76,0.1); color: var(--gold); border: 1px solid rgba(201,168,76,0.25); }
+  .badge-hard { background: rgba(139,32,32,0.2); color: #e06060; border: 1px solid rgba(192,57,43,0.3); }
+
+  .card-tip {
+    font-size: 13px;
+    line-height: 1.65;
+    color: #9e9688;
+    margin-bottom: 16px;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tip-tag {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-dim);
+    border-radius: 1px;
+  }
+
+  .tip-tag.chain { border-color: rgba(74,138,191,0.3); color: #6a9fc0; }
+  .tip-tag.burst { border-color: rgba(155,110,224,0.3); color: #9b6ee0; }
+  .tip-tag.poke { border-color: rgba(201,168,76,0.2); color: #8a7040; }
+  .tip-tag.sustain { border-color: rgba(80,160,80,0.3); color: #5aaa5a; }
+  .tip-tag.passive { border-color: rgba(120,100,80,0.3); color: #8a7a60; }
+
+  .expand-btn {
+    display: block;
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-top: 1px solid var(--border-subtle);
+    color: var(--text-dim);
+    font-family: 'Raleway', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 12px 0 0;
+    margin-top: 16px;
+    cursor: pointer;
+    text-align: center;
+    transition: color 0.2s;
+  }
+
+  .expand-btn:hover { color: var(--gold); }
+
+  /* ── Modal / Detail Panel ── */
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(5,8,16,0.88);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    backdrop-filter: blur(4px);
+  }
+
+  .overlay.open { display: flex; }
+
+  .detail-panel {
+    background: var(--bg-mid);
+    border: 1px solid var(--border-strong);
+    border-radius: 2px;
+    width: 100%;
+    max-width: 680px;
+    max-height: 88vh;
+    overflow-y: auto;
+    position: relative;
+    animation: panelIn 0.25s ease;
+  }
+
+  @keyframes panelIn {
+    from { opacity: 0; transform: scale(0.97) translateY(12px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .detail-panel::-webkit-scrollbar { width: 4px; }
+  .detail-panel::-webkit-scrollbar-track { background: transparent; }
+  .detail-panel::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+
+  .panel-header {
+    padding: 28px 28px 20px;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .panel-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 2px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .panel-title-area { flex: 1; }
+
+  .panel-champ-name {
+    font-family: 'Cinzel', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--gold-light);
+    margin-bottom: 4px;
+  }
+
+  .panel-meta {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .close-btn {
+    background: transparent;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    width: 36px; height: 36px;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .close-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+  .panel-body { padding: 24px 28px; }
+
+  .section-heading {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .tip-block {
+    margin-bottom: 28px;
+  }
+
+  .tip-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+
+  .tip-bullet {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold-dim);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  .tip-item p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #9e9688;
+  }
+
+  .tip-item p strong {
+    color: var(--gold-light);
+    font-weight: 500;
+  }
+
+  .ability-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .ability-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 2px;
+    padding: 12px 14px;
+  }
+
+  .ability-key {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold-dim);
+    margin-bottom: 4px;
+  }
+
+  .ability-effect {
+    font-size: 12px;
+    line-height: 1.55;
+    color: #7a7265;
+  }
+
+  .power-spike-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+
+  .spike-pill {
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    padding: 5px 12px;
+    border-radius: 1px;
+    border: 1px solid;
+  }
+
+  .spike-early { border-color: rgba(80,160,80,0.3); color: #5aaa5a; background: rgba(80,160,80,0.05); }
+  .spike-mid { border-color: rgba(201,168,76,0.3); color: var(--gold); background: rgba(201,168,76,0.05); }
+  .spike-late { border-color: rgba(155,110,224,0.3); color: var(--purple-bright); background: rgba(155,110,224,0.05); }
+  .spike-weak { border-color: rgba(139,32,32,0.3); color: #e06060; background: rgba(139,32,32,0.05); }
+
+  .no-results {
+    text-align: center;
+    padding: 80px 0;
+    display: none;
+  }
+
+  .no-results-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+    opacity: 0.3;
+  }
+
+  .no-results p {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+  }
+
+  /* ── Sticky Nav ── */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(5,8,16,0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 12px 0;
+  }
+
+  .sticky-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .sticky-brand {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    color: var(--gold-dim);
+    letter-spacing: 2px;
+    flex-shrink: 0;
+  }
+
+  .sticky-search {
+    flex: 1;
+    max-width: 380px;
+  }
+
+  .sticky-search input {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-main);
+    font-family: 'Raleway', sans-serif;
+    font-size: 13px;
+    padding: 8px 14px;
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .sticky-search input:focus { border-color: var(--gold-dim); }
+  .sticky-search input::placeholder { color: var(--text-dim); }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 60px 0 40px;
+    border-top: 1px solid var(--border-subtle);
+    margin-top: 60px;
+  }
+
+  footer p {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  /* Scroll to top */
+  .scroll-top {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 42px; height: 42px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    border-radius: 2px;
+    color: var(--gold);
+    font-size: 18px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    z-index: 90;
+  }
+
+  .scroll-top.visible { display: flex; }
+  .scroll-top:hover { background: var(--bg-card-hover); }
+
+  @media (max-width: 600px) {
+    .ability-grid { grid-template-columns: 1fr; }
+    .panel-header { flex-direction: column; }
+    .matchup-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Sticky nav -->
+<nav class="sticky-nav" id="sticky-nav" style="display:none;">
+  <div class="sticky-inner">
+    <span class="sticky-brand">SYLAS</span>
+    <div class="sticky-search">
+      <input type="text" id="sticky-search-input" placeholder="Buscar campeão...">
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Header -->
+<header>
+  <div class="container">
+    <p class="crown">— O Abjulgado —</p>
+    <h1>SYLAS<span>guia de matchups</span></h1>
+    <p class="tagline">"Eles forjaram as correntes. Eu as uso como armas."</p>
+  </div>
+</header>
+
+<!-- Search Section -->
+<section class="search-section">
+  <div class="container">
+    <div class="search-wrapper">
+      <svg class="search-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="8.5" cy="8.5" r="5.5"/><path d="M15 15l-3-3"/>
+      </svg>
+      <input type="text" id="search-input" placeholder="Pesquisar campeão (ex: Lux, Zed, Viktor...)">
+    </div>
+    <div class="search-tags-wrapper">
+      <div class="search-tags-group">
+        <span class="tags-label">Lane</span>
+        <div class="search-tags">
+          <button class="tag active" data-filter="all">Todas</button>
+          <button class="tag tag-mid" data-filter="mid">◆ Mid Lane</button>
+          <button class="tag tag-top" data-filter="top">▲ Top Lane</button>
+        </div>
+      </div>
+      <div class="tags-divider"></div>
+      <div class="search-tags-group">
+        <span class="tags-label">Filtro</span>
+        <div class="search-tags">
+          <button class="tag" data-filter="favorable">Favoráveis</button>
+          <button class="tag" data-filter="neutral">Neutros</button>
+          <button class="tag" data-filter="hard">Difíceis</button>
+        </div>
+      </div>
+      <div class="tags-divider"></div>
+      <div class="search-tags-group">
+        <span class="tags-label">Classe</span>
+        <div class="search-tags">
+          <button class="tag" data-filter="assassin">Assassinos</button>
+          <button class="tag" data-filter="mage">Magos</button>
+          <button class="tag" data-filter="tank">Tanques</button>
+          <button class="tag" data-filter="fighter">Lutadores</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<main>
+  <div class="container">
+    <div class="results-bar">
+      <p class="results-count"><strong id="results-num">0</strong> matchups encontrados</p>
+      <select class="sort-select" id="sort-select">
+        <option value="name">Nome A–Z</option>
+        <option value="favorable">Favoráveis primeiro</option>
+        <option value="hard">Difíceis primeiro</option>
+      </select>
+    </div>
+
+    <div class="matchup-grid" id="matchup-grid"></div>
+
+    <div class="no-results" id="no-results">
+      <div class="no-results-icon">⛓</div>
+      <p>Nenhum campeão encontrado</p>
+    </div>
+  </div>
+</main>
+
+<!-- Detail Overlay -->
+<div class="overlay" id="overlay">
+  <div class="detail-panel" id="detail-panel">
+    <div class="panel-header" id="panel-header"></div>
+    <div class="panel-body" id="panel-body"></div>
+  </div>
+</div>
+
+<button class="scroll-top" id="scroll-top" title="Voltar ao topo">↑</button>
+
+<footer>
+  <div class="container">
+    <p>Sylas Matchup Guide &nbsp;·&nbsp; League of Legends &nbsp;·&nbsp; Não afiliado à Riot Games &nbsp;·&nbsp; Feito por: Ang.Gabriel</p>
+  </div>
+</footer>
+
+<script>
+const MATCHUPS = [
+  {
+    id: 1,
+    name: "Lux",
+    role: "Mago",
+    types: ["mage", "favorable"],
+    difficulty: "favorable",
+    tip: "Lux não tem dash para escapar das suas correntes. Evite os bindings dela e você dominará a lane facilmente.",
+    ult: "Lazer Final (R)",
+    ultValue: "ALTÍSSIMO — causa dano massivo em área, ótimo para teamfights.",
+    tips: [
+      { bold: "Desvie do Q dela", text: " (Light Binding) — é habilidoso mas lento. Fique atrás de minions para reduzir o ângulo." },
+      { bold: "All-in no nível 3", text: " — ela não tem como responder à sua combo QEQ. Jogue agressivo." },
+      { bold: "Guarde flash ou esquiva", text: " para quando ela acertar o Q. O E dela vai chegar logo depois." },
+      { bold: "Roube o R dela", text: " e use em teamfight para limpar facilmente várias kills." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Lazer de longo alcance, poke excelente em objetivos e teamfights." },
+      { key: "CUIDADO COM Q", effect: "Light Binding — root duplo se acertar a segunda luz. Fica impossibilitado de usar E." },
+      { key: "POKE COM E", effect: "E dela aplica slow + dano passivo. Fique em movimento constante." },
+      { key: "ESCAPE SEM DASH", effect: "Ela não tem mobilidade. Uma vez que você chega, ela está morta." }
+    ],
+    spikes: [{ label: "Nível 3", type: "early" }, { label: "Nível 6", type: "mid" }, { label: "Itens de base", type: "mid" }],
+    weakness: ["Sem dash", "Squishy", "Dependente de acertar Q"],
+    runes: "Conqueror ou Eletrocutar",
+    lane: "mid",
+  },
+  {
+    id: 2,
+    name: "Viktor",
+    role: "Mago",
+    types: ["mage", "neutral"],
+    difficulty: "neutral",
+    tip: "Viktor é difícil no late game por causa do dano em área do R dele. Roube o R e use contra o time dele.",
+    ult: "Singularidade do Caos (R)",
+    ultValue: "MÉDIO — dano em área crescente com slow. Bom para zoneamento.",
+    tips: [
+      { bold: "Cuidado com Q + E dele cedo", text: " — o burst dele antes de nível 6 é real. Fique com HP acima de 70%." },
+      { bold: "Evite ficar parado", text: " — o E dele canaliza e expande. Se você for raiz'd é enorme dano." },
+      { bold: "All-in quando R dele for usado", text: " — sem R ele perde muito do dano de teamfight." },
+      { bold: "Seu R cura muito no stack dele", text: " — com Morte em Runa você pode recuperar vida em trocas." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Singularidade do Caos — dano crescente em área com atração. Forte em objetivos." },
+      { key: "CUIDADO COM E", effect: "Descarga de Morte — nova área que expande. Slow massivo no final." },
+      { key: "ARMOR DE HEXTECH", effect: "O Q dele dá escudo + dano. Jogue em janelas sem escudo." },
+      { key: "EVOLUÇÃO LENTA", effect: "Viktor fica mais forte com itens. Abuse early antes de escalar." }
+    ],
+    spikes: [{ label: "Nível 6", type: "mid" }, { label: "Luden/Shadowflame", type: "mid" }, { label: "3 itens", type: "late" }],
+    weakness: ["Sem dash", "Lento sem R", "Fragil contra gap-close"],
+    runes: "Conqueror ou Morte Imprevista",
+    lane: "mid",
+  },
+  {
+    id: 3,
+    name: "Zed",
+    role: "Assassino",
+    types: ["assassin", "hard"],
+    difficulty: "hard",
+    lane: "mid",
+    tip: "Zed é extremamente difícil. Sem habilidades roubáveis boas e com alto dano físico — construa armor cedo.",
+    ult: "Marca da Morte (R)",
+    ultValue: "BAIXO — não é uma ultimate mágica, então você não ganha poder real.",
+    tips: [
+      { bold: "Compre Relíquia Talon early", text: " — reduz o burst físico dele significativamente." },
+      { bold: "Não tente all-in early", text: " — ele ganha dano antes de você. Farm seguro e espere roam." },
+      { bold: "Track as sombras dele", text: " — quando ele usar W, anote a posição. Nunca fique na linha das sombras." },
+      { bold: "Peça gank da jungle", text: " — Zed é vulnerável a CC durante o all-in. Coordene com seu jungler." }
+    ],
+    abilities: [
+      { key: "R INÚTIL", effect: "Marca de Morte é físico — você usa como escape ou dano extra sem grande valor." },
+      { key: "DANO FÍSICO", effect: "Todo o kit dele é AD. Construa Relíquia Talon ou Randuin cedo." },
+      { key: "ALTA MOBILIDADE", effect: "W e R dão dois repositions. É quase impossível prenderem ele." },
+      { key: "LANE PHASE", effect: "Ele domina a lane. Foque em sobreviver e farmar para mid-late game." }
+    ],
+    spikes: [{ label: "Nível 3", type: "spike-early" }, { label: "Nível 6", type: "mid" }, { label: "Youmuu + Duskblade", type: "late" }],
+    weakness: ["Sem dano mágico", "R não escala com AP", "Vulnerável a CC em grupo"],
+    runes: "Morte Imprevista + Presença Mental",
+  },
+  {
+    id: 4,
+    name: "Orianna",
+    role: "Mago",
+    types: ["mage", "neutral"],
+    difficulty: "neutral",
+    lane: "mid",
+    tip: "Orianna tem poke consistente mas sem um dash. Seu R dela é OURO — um dos melhores ults do jogo.",
+    ult: "Chama aos Braços (R)",
+    ultValue: "EXTREMAMENTE ALTO — puxar o time inteiro é game-changing.",
+    tips: [
+      { bold: "Priorize roubar o R dela", text: " — o pull + campo é devastador em teamfights próximas." },
+      { bold: "Fique longe da bola dela", text: " — todo o kit dela depende de a bola estar perto de você." },
+      { bold: "All-in quando a bola estiver longe", text: " — sem bola perto ela tem dano mínimo." },
+      { bold: "Use E para engajar direto", text: " — a combo QEQ é suficiente para eliminar ela com 2 itens." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Chama aos Braços — pull + campo magnético. Top 3 ults do jogo para teamfight." },
+      { key: "TRACKING DA BOLA", effect: "QWER todos os efeitos emanam da bola. Bola longe = sem dano." },
+      { key: "POKE SEGURO", effect: "Q dá bola e retorna — safe poke constante no laning." },
+      { key: "ESCUDO NO W", effect: "W dela tem escudo ativo. Burste antes de ela usar W." }
+    ],
+    spikes: [{ label: "Nível 6", type: "mid" }, { label: "Zhonya/Shadowflame", type: "mid" }, { label: "3 itens", type: "late" }],
+    weakness: ["Sem mobilidade", "Dependente da bola", "Fraca sem R"],
+    runes: "Conqueror — o R dela garante muitos stacks",
+  },
+  {
+    id: 5,
+    name: "Fizz",
+    role: "Assassino",
+    types: ["assassin", "hard"],
+    difficulty: "hard",
+    lane: "mid",
+    tip: "Fizz tem muita mobilidade e é frustrante de jogar contra. Priorize não ser pego pelo R dele.",
+    ult: "Chum das Águas (R)",
+    ultValue: "ALTO — slow em área + dano baseado em distância. Bom peel.",
+    tips: [
+      { bold: "Não use E enquanto ele usar E dele", text: " — ele é intocável durante o E. Desperdício de habilidade." },
+      { bold: "All-in quando CD do E estiver fora", text: " — janela de ~10s onde você pode acertar tudo." },
+      { bold: "Fique com HP alto", text: " — o combo QEW dele one-shot facilmente em meados de jogo." },
+      { bold: "Use seu R para kite", text: " — o ult roubado do Fizz é excelente para slow + separação." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Chum das Águas — peixe grande é slow + dano em área. Bom para initiate." },
+      { key: "E INTOCÁVEL", effect: "Durante o E do Fizz ele é untargetable. Não jogue habilidades." },
+      { key: "BURST PESADO", effect: "Combo Q E W explode qualquer squishy. Fique acima de 60% HP." },
+      { key: "MOBILIDADE ALTA", effect: "Q e E dão muita mobilidade. Difícil de prender com correntes." }
+    ],
+    spikes: [{ label: "Nível 3", type: "early" }, { label: "Nível 6", type: "mid" }, { label: "Lichbane + Lich", type: "late" }],
+    weakness: ["Fraco sem E", "Cd alto no early", "Sem wave clear"],
+    runes: "Morte Imprevista — match de burst",
+  },
+  {
+    id: 6,
+    name: "Annie",
+    role: "Mago",
+    types: ["mage", "favorable"],
+    difficulty: "favorable",
+    lane: "mid",
+    tip: "Annie é um alvo fácil. Sem mobilidade e muito previsível. Jogue agressivo e force trades.",
+    ult: "Convocação: Tibbers (R)",
+    ultValue: "ALTO — invocação de urso + stun em área. Útil em teamfight.",
+    tips: [
+      { bold: "Conte os stuns dela", text: " — a cada 4 feitiços ela ganha Pyromania (stun). Jogue quando ela não tiver stack." },
+      { bold: "All-in quando R tiver no cooldown", text: " — sem Tibbers o burst dela cai muito." },
+      { bold: "Farm seguro quando ela tiver 4 stacks", text: " — um Q dela te stun + Tibbers = morte certa." },
+      { bold: "Fique atrás de minions", text: " — limita o ângulo do Q dela e reduz o raio do R." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Convocação: Tibbers — bear com dano passivo e stun no summon. Bom em teamfight." },
+      { key: "STUN PASSIVO", effect: "A cada 4 feitiços ela stun. Icone de chamas indica quando ela está pronta." },
+      { key: "SEM DASH", effect: "Annie não tem nenhuma mobilidade. Uma vez que você chega, ela morre." },
+      { key: "RANGE CURTO", effect: "Para uma mage, o range dela é bem curto. Abuse com E + aproximação." }
+    ],
+    spikes: [{ label: "Nível 3", type: "early" }, { label: "Nível 6", type: "mid" }, { label: "Rabadon", type: "late" }],
+    weakness: ["Zero mobilidade", "Previsível", "Sem poke seguro"],
+    runes: "Conqueror ou Eletrocutar",
+  },
+  {
+    id: 7,
+    name: "Yasuo",
+    role: "Assassino",
+    types: ["assassin", "neutral"],
+    difficulty: "neutral",
+    lane: "mid",
+    tip: "Yasuo é frustrante mas manejável. Seu tornado vira crowd control do seu E (correntes). Abuse disso.",
+    ult: "O Último Suspiro (R)",
+    ultValue: "MÉDIO-ALTO — o suspenso aéreo do R é forte mas requer setup. Útil em combo.",
+    tips: [
+      { bold: "Q1 e Q2 são fáceis de desviar", text: " — o tornado Q3 é o perigo. Fique atrás de minions." },
+      { bold: "E (Correntes) cancela o Wind Wall?", text: " Não — o E dele bloqueia projéteis. Não atire através do muro." },
+      { bold: "Force all-in quando R tiver em CD", text: " — sem R ele perde o CC de ultimate." },
+      { bold: "Use seu E com o aéreo do R", text: " — combine seu chain com o knockup do R dele que você roubou." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "O Último Suspiro — knockup em alvo aéreo. Combo com habilidades de knockup de aliados." },
+      { key: "WIND WALL", effect: "Bloqueia todos os projéteis. Não use habilidades de projétil enquanto o muro estiver ativo." },
+      { key: "DOUBLE SHIELD", effect: "Yasuo tem escudo passivo que recarrega. Espere ele usar antes de all-in." },
+      { key: "DASH SEM FIM", effect: "E nos minions — basicamente impossible de pegar se tiver minions perto." }
+    ],
+    spikes: [{ label: "Nível 3", type: "early" }, { label: "Immortal Shieldbow", type: "mid" }, { label: "3 itens", type: "late" }],
+    weakness: ["Fraco contra poke", "Wind Wall tem CD", "Depende de knockup"],
+    runes: "Conqueror — trades prolongadas funcionam bem",
+  },
+  {
+    id: 8,
+    name: "Cassiopeia",
+    role: "Mago",
+    types: ["mage", "hard"],
+    difficulty: "hard",
+    lane: "mid",
+    tip: "Cassiopeia tem DPS absurdo. Evite ser envenenado e nunca fique parado. Seu R dela é excelente.",
+    ult: "Olhar da Gorgona (R)",
+    ultValue: "ALTÍSSIMO — stun/slow massivo baseado em onde os inimigos estão olhando. Game-changer.",
+    tips: [
+      { bold: "Nunca fique parado em veneno", text: " — o E dela (Twin Fang) reset se você estiver envenenado. É infinite damage." },
+      { bold: "Roube o R dela", text: " — use de costas para o time inimigo para pétrificar todos." },
+      { bold: "Compre Zhonya contra ela", text: " — se você tiver Zhonya você pode absorver uma parte do burst dela." },
+      { bold: "All-in no nível 2-4", text: " — antes de ela ter escala de mana/CDR, o DPS dela é mais gerenciável." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Olhar da Gorgona — stun/slow em cone. Pétrifica quem olha para você. Devastador." },
+      { key: "VENENO INFINITO", effect: "Q e W aplicam veneno — permite E infinito com reset. Dano absurdo." },
+      { key: "SEM FLASH", effect: "Cassio não pode comprar Sapatilhas. Sem flash natural dela." },
+      { key: "FRACA A BURST", effect: "Se você chegar nela antes do veneno, ela morre rápido." }
+    ],
+    spikes: [{ label: "Nível 6", type: "mid" }, { label: "Nashor + Rylai", type: "mid" }, { label: "3 itens", type: "late" }],
+    weakness: ["Sem mobilidade", "Sem flash", "Fraca a burst antes de veneno"],
+    runes: "Morte Imprevista — burst nela antes do veneno",
+  },
+  {
+    id: 9,
+    name: "Veigar",
+    role: "Mago",
+    types: ["mage", "favorable"],
+    difficulty: "favorable",
+    lane: "mid",
+    tip: "Veigar é fácil early mas pode one-shot no late game. Jogue agressivo antes de ele ter stacks demais.",
+    ult: "Primordial Burst (R)",
+    ultValue: "ALTO — dano escala com a vida faltante do alvo. Devastador abaixo de 40% HP.",
+    tips: [
+      { bold: "Abuse o early game", text: " — antes de 100 stacks de AP o burst dele não mata você facilmente." },
+      { bold: "Nunca fique parado na gaiola dele", text: " — W (gaiola) stun nas bordas. Mova para o centro imediatamente." },
+      { bold: "Poke quando ele for farmar", text: " — ele precisa acertar Q em minions/campeões para ganhar stacks. Interrompa isso." },
+      { bold: "Roube o R e use com gaiola", text: " — o R dele em um carry preso é praticamente sempre kill." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Primordial Burst — execução mágica. Use em carry preso na gaiola para kill garantida." },
+      { key: "GAIOLA (W)", effect: "Event Horizon stun nas bordas. Se você for preso, vá ao centro. Não para as bordas." },
+      { key: "STACKS INFINITOS", effect: "AP dele cresce ilimitado. Quanto mais o jogo dura, mais perigoso fica." },
+      { key: "SEM MOBILIDADE", effect: "Nenhum dash. Você chega nele uma vez, ele morre. Simples." }
+    ],
+    spikes: [{ label: "100 AP stacks", type: "mid" }, { label: "Nível 11", type: "mid" }, { label: "200+ stacks", type: "late" }],
+    weakness: ["Sem dash", "Fraco early", "Dependente de stacks"],
+    runes: "Conqueror ou Eletrocutar",
+  },
+  {
+    id: 10,
+    name: "Malzahar",
+    role: "Mago",
+    types: ["mage", "neutral"],
+    difficulty: "neutral",
+    lane: "mid",
+    tip: "O R do Malzahar é suprimão — você não pode usar habilidades enquanto suprimido. Compre QSS se necessário.",
+    ult: "Supressão Nula (R)",
+    ultValue: "ALTO-MÉDIO — canalização de supressão com dano. Bom lockdown mas você precisa parar de se mover.",
+    tips: [
+      { bold: "Compre QSS se ele for o carry principal", text: " — o R dele em você enquanto faz all-in é morte certa." },
+      { bold: "Destrua os Voidlings dele", text: " — os voidlings amplificam o dano passivo. Kill-los primeiro." },
+      { bold: "All-in rápido", text: " — antes de ele colocar E em você. Cada segundo com E diminui sua chance." },
+      { bold: "Fique atrás de minions", text: " — o Q dele tem silêncio em área. Minions absorvem o Q." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Supressão Nula — suprime um alvo e causa dano. Bom para isolar carry." },
+      { key: "VOIDLINGS", effect: "Passiva gera voidlings — amplificam dano do E. Destrua-os para reduzir pressão." },
+      { key: "SILÊNCIO (Q)", effect: "Void Shift silencia em área. Posicione-se para evitar o cone." },
+      { key: "PUSH DE WAVE", effect: "Malzahar tem enorme wave clear com E + voidlings. Roam quando ele pushar." }
+    ],
+    spikes: [{ label: "Nível 6", type: "mid" }, { label: "Liandry", type: "mid" }, { label: "3 itens", type: "late" }],
+    weakness: ["Sem mobilidade", "Canal interrompível", "Dependente de voidlings"],
+    runes: "Morte Imprevista — burst antes do E ser aplicado",
+  },
+  {
+    id: 11,
+    name: "Ahri",
+    role: "Assassino",
+    types: ["assassin", "mage", "neutral"],
+    difficulty: "neutral",
+    lane: "mid",
+    tip: "Ahri tem mobilidade mas você também. O R dela roubado é excelente para perseguição ou escape.",
+    ult: "Espírito Precursor (R)",
+    ultValue: "ALTÍSSIMO — três dashes que podem ser repositioned ou usados como escape/perseguição.",
+    tips: [
+      { bold: "Roube o R dela o mais cedo possível", text: " — três dashes é mobilidade enorme." },
+      { bold: "Cuidado com charm (E dela)", text: " — se acertar você ela pode all-in facilmente. Fique atrás de minions." },
+      { bold: "Quando R dela estiver em CD", text: " — ela fica vulnerável. Engage nesse momento." },
+      { bold: "All-in no nível 3", text: " — ela não tem mobilidade antes do 6. Pressione cedo." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Espírito Precursor — 3 dashes curtos. Perseguição, escape, ou repositionamento em fight." },
+      { key: "CHARM (E)", effect: "Habilidade homing em linha. Inimigos charmados caminham em direção a ela." },
+      { key: "ORBE (Q)", effect: "Q vai e volta — dano mágico na ida, verdadeiro na volta. Desvie indo lateral." },
+      { key: "QUEDA DE ESPÍRITO (W)", effect: "W dano em área + slow. Baixo CD mas alcance curto." }
+    ],
+    spikes: [{ label: "Nível 6", type: "mid" }, { label: "Luden/Lich Bane", type: "mid" }, { label: "3 itens", type: "late" }],
+    weakness: ["Sem R = sem escape", "Dependente de acertar charm", "Fraca a poke antes do 6"],
+    runes: "Conqueror ou Eletrocutar",
+  },
+  {
+    id: 12,
+    name: "Galio",
+    role: "Tanque",
+    types: ["tank", "hard"],
+    difficulty: "hard",
+    lane: "mid",
+    tip: "Galio é um countera o Sylas pela natureza — alta resistência mágica e R de teamfight global.",
+    ult: "Herói das Massas (R)",
+    ultValue: "MÉDIO — teamfight global com knockup. Você não ganha muito com este ult.",
+    tips: [
+      { bold: "Compre Void Staff cedo", text: " — o MR passivo do Galio reduz muito seu dano. Penetração mágica é essencial." },
+      { bold: "Nunca seja apanhado pelo R dele", text: " — o knockup em teamfight com 5 aliados é devastador." },
+      { bold: "Farm para late game", text: " — Galio é mais um facilitador. Você escala melhor item a item." },
+      { bold: "Jogue ao redor do jungler", text: " — Galio é um campeão de roam. Pressione antes que ele roame." }
+    ],
+    abilities: [
+      { key: "R FRACO PARA SYLAS", effect: "Herói das Massas é global — mas o knockup ajuda pouco sem follow-up." },
+      { key: "MR PASSIVO", effect: "Passiva do Galio reduz 50% do dano mágico recebido deles. Void Staff obrigatório." },
+      { key: "WIND WALL DO E", effect: "E do Galio knockback + dano. Combinar com W para máximo dano." },
+      { key: "ROAM GLOBAL", effect: "R dele é global. Track onde ele vai e pressione o tower oposta." }
+    ],
+    spikes: [{ label: "Nível 6 (roam)", type: "mid" }, { label: "Zeke's/Abyssal", type: "mid" }, { label: "Full build tanque", type: "late" }],
+    weakness: ["R fraco para você roubado", "Dependente de aliados", "Slow sem R"],
+    runes: "Conqueror — trades longas contra tank",
+  },
+  {
+    id: 13,
+    name: "Syndra",
+    role: "Mago",
+    types: ["mage", "neutral"],
+    difficulty: "neutral",
+    lane: "mid",
+    tip: "Syndra pode one-shot late game mas seu R é excelente. Aproveite a falta de mobilidade dela.",
+    ult: "Poder Irrestrito (R)",
+    ultValue: "ALTO — arremessa todas as esferas em um alvo. Late game pode one-shot carries.",
+    tips: [
+      { bold: "Jogue fora do alcance do Q + E dela", text: " — a combo Q>E (atordoa com esfera) é o principal dano dela." },
+      { bold: "Force all-in quando R estiver em CD", text: " — sem R ela perde muito poder de burst." },
+      { bold: "Roube o R e acumule esferas", text: " — o R dela escala com o número de esferas no campo." },
+      { bold: "Cuidado com o nível 9+", text: " — habilidade máxima com muitas esferas pode one-shot qualquer um." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Poder Irrestrito — arremessa todas esferas. Devastador contra carries no late game." },
+      { key: "STUN COMBO", effect: "Q>E atordoa o alvo — janela perfeita para todo seu burst." },
+      { key: "ESFERAS PASSIVAS", effect: "Transbordamento gera esferas extras passivas — mais esferas = mais R dano." },
+      { key: "SEM DASH", effect: "Nenhuma mobilidade. Uma vez que você chega com correntes, ela está morta." }
+    ],
+    spikes: [{ label: "Nível 9 (max Q)", type: "mid" }, { label: "Shadowflame", type: "mid" }, { label: "3 itens", type: "late" }],
+    weakness: ["Sem mobilidade", "Dependente de setup com esferas", "R tem CD longo"],
+    runes: "Conqueror ou Eletrocutar",
+  },
+  {
+    id: 14,
+    name: "Katarina",
+    role: "Assassino",
+    types: ["assassin", "hard"],
+    difficulty: "hard",
+    lane: "mid",
+    tip: "Katarina reseta kills — uma vez que ela começa a girar no R é quase impossível parar. Mas você pode interromper.",
+    ult: "Dança das Lâminas (R)",
+    ultValue: "ALTO-MÉDIO — dano em torno dela em canal. Interrompível por qualquer CC.",
+    tips: [
+      { bold: "Guarde seu E para quando ela usar R", text: " — E (correntes) INTERROMPE o R dela. Timing perfeito." },
+      { bold: "Nunca deixe ela pegar adagas", text: " — posicione entre ela e as adagas para negar mobilidade." },
+      { bold: "Fique perto para correntes funcionarem", text: " — range do E do Sylas é curto, então não deixe ela escavar." },
+      { bold: "All-in antes do nível 6", text: " — Kata sem R é muito mais manejável. Pressione antes." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Dança das Lâminas — canal de dano ao redor dela. Use e MOVA para maximizar dano." },
+      { key: "INTERRUPÇÃO DO E", effect: "SEU E (correntes) interrompe o R da Kata instantaneamente. Mais valioso que o dano." },
+      { key: "ADAGAS", effect: "As adagas dela no chão permitem teleport. Fique na frente delas para negar." },
+      { key: "RESET DE KILLS", effect: "A cada kill/assist ela reseta CDs. Não deixe ela snowball." }
+    ],
+    spikes: [{ label: "Nível 6", type: "mid" }, { label: "Hextech Rocketbelt", type: "mid" }, { label: "3 itens + snowball", type: "late" }],
+    weakness: ["CC interrompe R", "Dependente de adagas", "Fraca sem assists/kills para reset"],
+    runes: "Morte Imprevista — burst antes dela usar E",
+  },
+  {
+    id: 15,
+    name: "Diana",
+    role: "Assassino",
+    types: ["assassin", "mage", "favorable"],
+    difficulty: "favorable",
+    lane: "mid",
+    tip: "Diana é uma carry similar ao Sylas. A diferença é que você tem mais CC e cura. Você ganha esse matchup.",
+    ult: "Puxão Lunar (R)",
+    ultValue: "ALTÍSSIMO — puxão em área + dano. Devastador em teamfight quando você chega primeiro.",
+    tips: [
+      { bold: "Seu sustain vence dela", text: " — Diana tem dano mas sem cura real. Você regenera com E em teamfight." },
+      { bold: "Roube o R dela", text: " — use para puxar o time inteiro no início da teamfight." },
+      { bold: "All-in quando Moonsilver Shield estiver em CD", text: " — o escudo passivo dela recarrega. Espere." },
+      { bold: "Correntes (E) são sua vantagem chave", text: " — ela não tem CC equivalente. Use para iniciar." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Puxão Lunar — pull em área ao redor dela. Perfeito para iniciar teamfight." },
+      { key: "ESCUDO LUNAR", effect: "Passiva diana carrega esferas orbitantes. Destrua com dano para remover escudo." },
+      { key: "Q (CRESCENTE)", effect: "Slow + dano mágico em arco. Fácil de desviar ficando atrás de minions." },
+      { key: "DASH NO W", effect: "W dela dash para o alvo lunar marcado pelo Q. Evite ser marcado." }
+    ],
+    spikes: [{ label: "Nível 3", type: "early" }, { label: "Nível 6", type: "mid" }, { label: "Lich Bane", type: "mid" }],
+    weakness: ["Fraca sem Q acertando", "Dependente de moonmark", "Less CC que Sylas"],
+    runes: "Conqueror — sustain vence o matchup",
+  },
+
+  // ── TOP LANE ──
+  {
+    id: 16,
+    name: "Darius",
+    role: "Lutador",
+    types: ["fighter", "hard"],
+    difficulty: "hard",
+    lane: "top",
+    tip: "Darius te derrota em trade curto com o sangramento passivo. Nunca fique em alcance do Q externo dele.",
+    ult: "Noxian Guillotine (R)",
+    ultValue: "ALTO — execução true damage que reseta. Excelente para limpar carries no late game.",
+    tips: [
+      { bold: "Nunca deixe o bleeding empilhar", text: " — 5 stacks dão R resetável. Saia da trade imediatamente." },
+      { bold: "Fique no centro do Q dele", text: " — a borda do Q causa muito mais dano. Centro é o ponto fraco." },
+      { bold: "Roube o R e use como execução", text: " — com AP o R escala diferente mas ainda causa dano verdadeiro." },
+      { bold: "Jogue poke-trade", text: " — E + Q + E (sair). Nunca fique parado perto dele." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Noxian Guillotine — true damage que reseta com kills. Devastador para limpar equipe." },
+      { key: "PASSIVA HEMORRÁGICA", effect: "5 stacks de sangramento = R resetável. Nunca permita o stack completo." },
+      { key: "PUXÃO DO E", effect: "E puxa para perto — combinado com Q externo é kill garantida. Não deixe aproximar." },
+      { key: "WALL DE W", effect: "W desacelera quem tenta fugir. Sempre use Flash antes que ele coloque W." }
+    ],
+    spikes: [{ label: "Nível 3", type: "early" }, { label: "Stride + Triforce", type: "mid" }, { label: "5 stacks passiva", type: "late" }],
+    weakness: ["Sem mobilidade", "Fraco a kite", "Depende de ficar na trade"],
+    runes: "Conqueror — você precisa de sustain nesse matchup",
+  },
+  {
+    id: 17,
+    name: "Garen",
+    role: "Lutador",
+    types: ["fighter", "tank", "favorable"],
+    difficulty: "favorable",
+    lane: "top",
+    tip: "Garen é um alvo excelente para o Sylas. Seu R é devastador e ele não tem como te alcançar depois de um E.",
+    ult: "Julgamento Demaciano (R)",
+    ultValue: "ALTÍSSIMO — true damage baseado no HP máximo do alvo. Mata tanks instantaneamente.",
+    tips: [
+      { bold: "Roube o R dele cedo", text: " — verdadeiro dano em percentual de HP. Mata qualquer tank." },
+      { bold: "Poke com Q e saia", text: " — Garen tem regeneração passiva mas você cura também. Abuse." },
+      { bold: "Não fique no W dele", text: " — W reduz CC recebido e dano. Não desperdice correntes quando ele ativar." },
+      { bold: "All-in após o E dele acabar", text: " — durante o giro do E ele é imune a slow. Espere acabar." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Julgamento Demaciano — true damage percentual. Absurdo contra tanks em teamfight." },
+      { key: "SILENCE DO Q", effect: "Q silencia — você não pode usar habilidades durante. Não inicie quando silenciado." },
+      { key: "GIRO DO E", effect: "E causa muito dano mas tem animação longa. Kite fora do range." },
+      { key: "REGEN PASSIVA", effect: "Garen tem regen enorme fora de combate. Force trades frequentes para negar." }
+    ],
+    spikes: [{ label: "Nível 2 (Q silence)", type: "early" }, { label: "Stridebreaker", type: "mid" }, { label: "Full tank + R", type: "late" }],
+    weakness: ["Sem dash", "Fraco a kite", "R tem CD longo"],
+    runes: "Conqueror — trades longas com sustain",
+  },
+  {
+    id: 18,
+    name: "Malphite",
+    role: "Tanque",
+    types: ["tank", "neutral"],
+    difficulty: "neutral",
+    lane: "top",
+    tip: "Malphite é chato de lidar no early mas seu R é um dos melhores do jogo. Roube e devastem.",
+    ult: "Golpe Imparável (R)",
+    ultValue: "ALTÍSSIMO — knockup em área instantâneo. O melhor initiate do jogo. Perfeito para teamfight.",
+    tips: [
+      { bold: "Compre Void Staff antes do 3º item", text: " — Malphite full armor reduz seu dano drasticamente." },
+      { bold: "Roube o R e inicie teamfights", text: " — knockup em 5 é praticamente vitória garantida da teamfight." },
+      { bold: "Evite trocar sustentado", text: " — a passiva de armor dele é percentual. Dano mágico penetra mais." },
+      { bold: "Não seja o alvo do R dele", text: " — o knockup do R mais combo dos aliados é kill certa." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Golpe Imparável — dash instantâneo + knockup em área. Top 3 ults de teamfight." },
+      { key: "PASSIVA DE ESCUDO", effect: "Malphite tem escudo baseado no HP máximo. Poking remove — espere recarregar." },
+      { key: "ARMOR PASSIVO", effect: "E aumenta armor passivamente. Void Staff é obrigatório para penetrar." },
+      { key: "SLOW DO Q", effect: "Q slow + dano. Fique fora do range para evitar ser alcançado no engage." }
+    ],
+    spikes: [{ label: "Nível 6 (R)", type: "mid" }, { label: "Sunfire + Thornmail", type: "mid" }, { label: "Full armor", type: "late" }],
+    weakness: ["Fraco antes do nível 6", "Previsível", "R longo CD"],
+    runes: "Conqueror — trades longas desgastam o escudo passivo",
+  },
+  {
+    id: 19,
+    name: "Fiora",
+    role: "Lutador",
+    types: ["fighter", "hard"],
+    difficulty: "hard",
+    lane: "top",
+    tip: "Fiora é extremamente difícil. Alto dano, riposte (W) bloqueia seu E, e te mata em split push.",
+    ult: "Grand Challenge (R)",
+    ultValue: "BAIXO-MÉDIO — cura massiva para o time em torno dela. Pouco útil para Sylas.",
+    tips: [
+      { bold: "Nunca use E enquanto Riposte (W) estiver disponível", text: " — ela vai parar e te stunar. Espere o W." },
+      { bold: "Fique de olho nos vitals", text: " — os pontos vitais no seu corpo causam dano verdadeiro. Vire a câmera." },
+      { bold: "Build Zhonya + Seraph early", text: " — você precisa de sobrevivência. Fiora te mata rápido." },
+      { bold: "Não all-in sem vantagem de HP", text: " — Fiora vence trades curtas. Você precisa de sustain para ganhar." }
+    ],
+    abilities: [
+      { key: "R FRACO PARA SYLAS", effect: "Grand Challenge dá cura para aliados. Pouco impacto com AP." },
+      { key: "RIPOSTE (W)", effect: "Para QUALQUER CC e causa dano true. O W bloqueia seu E. Espere expirar." },
+      { key: "VITALS", effect: "Pontos vitais no inimigo causam true damage. Ficam alternando — vire-se." },
+      { key: "LUNGE (Q)", effect: "Q dela reseta com vitals. Alta mobilidade quando ela está acertando vitals." }
+    ],
+    spikes: [{ label: "Nível 3", type: "early" }, { label: "Trinity Force", type: "mid" }, { label: "3 itens AD", type: "late" }],
+    weakness: ["W tem CD alto", "Depende de acertar vitals", "Fraca a CC múltiplo"],
+    runes: "Conqueror — sem opção melhor nesse matchup",
+  },
+  {
+    id: 20,
+    name: "Camille",
+    role: "Lutador",
+    types: ["fighter", "hard"],
+    difficulty: "hard",
+    lane: "top",
+    tip: "Camille é um dos matchups mais difíceis no top. R dela te isola completamente — sem escapatória.",
+    ult: "Hextech Ultimatum (R)",
+    ultValue: "ALTO — isola você em uma arena. Ótimo para 1v1 mas perde valor em teamfight.",
+    tips: [
+      { bold: "Nunca seja apanhado isolado pelo R dela", text: " — dentro da arena a Camille tem vantagem total sobre você." },
+      { bold: "Cuidado com o W dela", text: " — a segunda fase do W causa true damage em cone. Não fique na direção dela." },
+      { bold: "Roube o R e use para isolar um carry", text: " — a arena é poderosa mas use em alguém que você consegue matar." },
+      { bold: "Force ganks antes do 6", text: " — antes do R ela é mais manejável. Peça jungle cedo." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Hextech Ultimatum — isola alvo em arena. Use para separar e matar carry." },
+      { key: "TRUE DAMAGE (W)", effect: "Segundo hit do W é true damage em cone. Não fica na posição dela." },
+      { key: "HOOKSHOT (E)", effect: "E dela é gap-close em paredes. Difícil de fugir se você está perto de uma wall." },
+      { key: "ESCUDO PASSIVO", effect: "Passiva dá escudo ao atingir HP baixo. Não deixe ela ativar." }
+    ],
+    spikes: [{ label: "Nível 6 (R)", type: "mid" }, { label: "Trinity Force", type: "mid" }, { label: "3 itens AD", type: "late" }],
+    weakness: ["R fraco em teamfight aberta", "Hookshot falha sem paredes", "Fraca a poke long range"],
+    runes: "Morte Imprevista — burst antes que ela reaja",
+  },
+  {
+    id: 21,
+    name: "Sett",
+    role: "Lutador",
+    types: ["fighter", "neutral"],
+    difficulty: "neutral",
+    tip: "Sett tem sustain enorme e o R dele é ótimo para teamfight. Você ganha trades longas com Conqueror.",
+    ult: "Show Stopper (R)",
+    ultValue: "ALTÍSSIMO — pega um campeão e arremessa nele em outro. Dano massivo em área.",
+    tips: [
+      { bold: "Roube o R e use para iniciar", text: " — pegar um tank e arremessar no grupo do inimigo é devastador." },
+      { bold: "Nunca fique com HP baixo", text: " — o W do Sett escala com o dano acumulado. HP baixo = mais dano no W." },
+      { bold: "Abuse de poke antes de chegar perto", text: " — o dano dele é corpo a corpo. Mantenha distância." },
+      { bold: "Compre Morellonomicon", text: " — a regeneração passiva do Sett é enorme. Grievous Wounds ajuda." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Show Stopper — arremessa um campeão em outro. Inicia teamfight ou separa carry." },
+      { key: "W ACUMULADO", effect: "W do Sett escala com dano recebido — quanto mais HP perdeu, mais forte. Não troque muito." },
+      { key: "PUNHO PASSIVO", effect: "Sett acumula Grit (HP) com dano recebido e libera no W. Evite trades curtas." },
+      { key: "E SLOW", effect: "E desacelera inimigos nas laterais. Não ande nas laterais quando ele usar." }
+    ],
+    spikes: [{ label: "Nível 3", type: "early" }, { label: "Stridebreaker", type: "mid" }, { label: "Full tanque", type: "late" }],
+    weakness: ["Dano corpo a corpo", "W tem CD alto", "Fraco a kite"],
+    runes: "Conqueror — trades longas com sustain vencem",
+  },
+  {
+    id: 22,
+    name: "Cho'Gath",
+    role: "Tanque",
+    types: ["tank", "favorable"],
+    difficulty: "favorable",
+    lane: "top",
+    tip: "Cho'Gath tem um R incrível para você roubar. True damage que escala com AP é devastador no seu kit.",
+    ult: "Festim (R)",
+    ultValue: "ALTÍSSIMO — true damage que escala com AP e stacks. Com AP do Sylas é insano.",
+    tips: [
+      { bold: "Roube o R e use em tank", text: " — Festim com AP do Sylas causa true damage enorme. Mata tanks." },
+      { bold: "Interrompa o W dele", text: " — Ruptura do Void (W) é canal curto com knockup. Mova-se." },
+      { bold: "All-in quando ele não tiver stacks de R", text: " — sem stacks o HP máximo dele é menor. Janela de kill." },
+      { bold: "Sua cura sustenta trades longas", text: " — Cho'Gath tem dano mas sem burst real. Você aguenta." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Festim — true damage que escala com AP. Com build AP do Sylas é ridículo." },
+      { key: "SILENCE DO E", effect: "Feral Scream silencia em cone. Você não pode usar habilidades durante." },
+      { key: "KNOCKUP DO Q", effect: "Ruptura do Void knockup em área — canal curto. Fique em movimento." },
+      { key: "REGEN PASSIVA", effect: "Cannibalism restaura HP com kills de minion. Farm agressivo para crescer." }
+    ],
+    spikes: [{ label: "Nível 6 (R)", type: "mid" }, { label: "6 stacks R", type: "mid" }, { label: "AP + stacks", type: "late" }],
+    weakness: ["Sem mobilidade", "Fraco early", "R tem CD muito longo"],
+    runes: "Conqueror — sustain na lane",
+  },
+  {
+    id: 23,
+    name: "Mordekaiser",
+    role: "Lutador",
+    types: ["fighter", "mage", "hard"],
+    difficulty: "hard",
+    lane: "top",
+    tip: "Mordekaiser te isola no R e drena seus stats temporariamente. Um dos matchups mais frustrantes no top.",
+    ult: "Realm of Death (R)",
+    ultValue: "MÉDIO — isola você e drena 10% dos seus stats. Bom para 1v1 mas fraco em teamfight aberta.",
+    tips: [
+      { bold: "Nunca lute 1v1 contra Mordekaiser", text: " — o R dele é feito para isso. Ele vence quase sempre no isolamento." },
+      { bold: "Compre QSS", text: " — Remove o R dele instantaneamente. Item mais importante nesse matchup." },
+      { bold: "Force trades rápidas", text: " — não deixe o E dele (Obliterate) empilhar dano. Hit and run." },
+      { bold: "Roube o R para isolar o carry adversário", text: " — você pode usar o R roubado de forma mais inteligente." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Realm of Death — isola alvo e drena stats. Use para eliminar carry separado." },
+      { key: "QSS É OBRIGATÓRIO", effect: "Sem QSS você está preso no Death Realm sempre que ele usar R." },
+      { key: "ESCUDO DO W", effect: "W do Morde é escudo grande que pode ser convertido em HP. Difícil de burst." },
+      { key: "PASSIVA MAGNÉTICA", effect: "Passiva cria campo que beneficia Morde dentro. Mantenha distância da borda." }
+    ],
+    spikes: [{ label: "Nível 6 (R)", type: "mid" }, { label: "Riftmaker + Rylai", type: "mid" }, { label: "Full AP tanque", type: "late" }],
+    weakness: ["Fraco contra kite", "R fraco em teamfight aberta", "Sem mobilidade real"],
+    runes: "Conqueror — você precisa de sustain para aguentar",
+  },
+  {
+    id: 24,
+    name: "Irelia",
+    role: "Lutador",
+    types: ["fighter", "hard"],
+    difficulty: "hard",
+    lane: "top",
+    tip: "Irelia é horrível para jogar contra. Alta mobilidade com Q stacked e stun no E. Jogue passivo e peça jungle.",
+    ult: "Vanguard's Edge (R)",
+    ultValue: "ALTO — disparo de lâminas que cria parede + disarm. Bom para zone em teamfight.",
+    tips: [
+      { bold: "Nunca lute quando ela tiver 4 stacks passiva", text: " — ataque aumentado + dano true damage. Risco de morte imediata." },
+      { bold: "Desvie do E dela", text: " — stun duplo se você ficar entre as lâminas. Fique posicionado lateralmente." },
+      { bold: "Não deixe ela Q em minions para chegar em você", text: " — ela usa Q nos minions como dash. Farm longe da wave." },
+      { bold: "Roube o R e use para zone", text: " — a parede de lâminas bloqueia posicionamento em teamfight." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Vanguard's Edge — parede de lâminas + disarm em área. Zone em objetivos e teamfight." },
+      { key: "Q DASH INFINITO", effect: "Q reseta com kills e stuns. Cada minion é um dash. Evite postar perto de minions." },
+      { key: "E STUN", effect: "Stun se o inimigo ficar entre as duas lâminas. Fique lateral sempre." },
+      { key: "PASSIVA STACKED", effect: "4 stacks = dano massivo + velocidade. Nunca lute com ela em 4 stacks." }
+    ],
+    spikes: [{ label: "Nível 2-3", type: "early" }, { label: "Trinity Force", type: "mid" }, { label: "3 itens AD", type: "late" }],
+    weakness: ["Fraca sem stacks passiva", "E previsível", "Fraca a CC em grupo"],
+    runes: "Morte Imprevista — burst antes dos stacks",
+  },
+  {
+    id: 25,
+    name: "Kennen",
+    role: "Mago",
+    types: ["mage", "fighter", "favorable"],
+    difficulty: "favorable",
+    lane: "top",
+    tip: "Kennen é um mago no top e você lida bem com ele. Seu R é excelente em teamfight para você roubar.",
+    ult: "Tempestade Elétrica (R)",
+    ultValue: "ALTÍSSIMO — dano em área + stun em todos que ficarem perto. Devastador em teamfight fechada.",
+    tips: [
+      { bold: "Roube o R e ative dentro do time inimigo", text: " — stun em área com AP do Sylas é game-winning." },
+      { bold: "All-in quando ele não tiver stacks de atordoamento", text: " — 3 stacks de raio = stun. Cuidado." },
+      { bold: "Mantenha pressão de poke", text: " — Kennen tem pouca sustain. E + Q constante desgasta ele." },
+      { bold: "Nunca fique parado perto dele com R ativo", text: " — o R dele stun quem toca. Mantenha distância durante." }
+    ],
+    abilities: [
+      { key: "ROUBE O R", effect: "Tempestade Elétrica — stun + dano em área em torno dele. Insano com AP do Sylas." },
+      { key: "STACKS DE RAIO", effect: "3 stacks = stun automático. Q, W e E aplicam stacks diferentes." },
+      { key: "DASH DO E", effect: "E de energia dá mobilidade. Sem mana — pode usar frequentemente." },
+      { key: "POKE COM W", effect: "W aplica stacks passivos em aliados atingidos pelo raio." }
+    ],
+    spikes: [{ label: "Nível 6", type: "mid" }, { label: "Hextech Rocketbelt", type: "mid" }, { label: "3 itens AP", type: "late" }],
+    weakness: ["Fraco a burst", "R tem posicionamento ruim", "Pouco CC fora do R"],
+    runes: "Conqueror ou Eletrocutar",
+  },
+];
+
+let filtered = [...MATCHUPS];
+let activeLane = 'all';
+let activeDiff = 'all';
+let activeClass = 'all';
+let searchQuery = '';
+let sortBy = 'name';
+
+const laneFilters = ['all', 'mid', 'top'];
+const diffFilters = ['favorable', 'neutral', 'hard'];
+const classFilters = ['assassin', 'mage', 'tank', 'fighter'];
+
+function getDiffClass(d) {
+  return d === 'favorable' ? 'card-favorable' : d === 'hard' ? 'card-hard' : 'card-neutral';
+}
+function getBadgeClass(d) {
+  return d === 'favorable' ? 'badge-favorable' : d === 'hard' ? 'badge-hard' : 'badge-neutral';
+}
+function getBadgeLabel(d) {
+  return d === 'favorable' ? 'Favorável' : d === 'hard' ? 'Difícil' : 'Neutro';
+}
+
+function applyFilters() {
+  filtered = MATCHUPS.filter(m => {
+    const matchSearch = m.name.toLowerCase().includes(searchQuery) ||
+      m.role.toLowerCase().includes(searchQuery) ||
+      m.lane.toLowerCase().includes(searchQuery) ||
+      m.tip.toLowerCase().includes(searchQuery);
+    const matchLane = activeLane === 'all' || m.lane === activeLane;
+    const matchDiff = activeDiff === 'all' || m.difficulty === activeDiff;
+    const matchClass = activeClass === 'all' || m.types.includes(activeClass);
+    return matchSearch && matchLane && matchDiff && matchClass;
+  });
+
+  if (sortBy === 'name') filtered.sort((a,b) => a.name.localeCompare(b.name));
+  else if (sortBy === 'favorable') filtered.sort((a,b) => {
+    const order = { favorable:0, neutral:1, hard:2 };
+    return order[a.difficulty] - order[b.difficulty];
+  });
+  else if (sortBy === 'hard') filtered.sort((a,b) => {
+    const order = { hard:0, neutral:1, favorable:2 };
+    return order[a.difficulty] - order[b.difficulty];
+  });
+
+  render();
+}
+
+function render() {
+  const grid = document.getElementById('matchup-grid');
+  const noRes = document.getElementById('no-results');
+  const count = document.getElementById('results-num');
+  count.textContent = filtered.length;
+
+  if (!filtered.length) {
+    grid.innerHTML = '';
+    noRes.style.display = 'block';
+    return;
+  }
+  noRes.style.display = 'none';
+
+  grid.innerHTML = filtered.map((m, i) => `
+    <div class="matchup-card ${getDiffClass(m.difficulty)}" style="animation-delay:${i*0.04}s" data-id="${m.id}">
+      <div class="card-header">
+        <div class="champion-info">
+          <p class="champion-name">${m.name}</p>
+          <p class="champion-role">${m.role}</p>
+        </div>
+        <span class="difficulty-badge ${getBadgeClass(m.difficulty)}">${getBadgeLabel(m.difficulty)}</span>
+      </div>
+      <p class="card-tip">${m.tip}</p>
+      <div class="card-tags">
+        <span class="tip-tag chain">⛓ Correntes</span>
+        <span class="tip-tag burst">✦ ${m.runes.split(' ')[0]}</span>
+        <span class="tip-tag passive">${m.role}</span>
+        <span class="tip-tag" style="${m.lane === 'top' ? 'border-color:rgba(155,110,224,0.35);color:#9b6ee0' : 'border-color:rgba(201,168,76,0.25);color:#8a7040'}">${m.lane === 'top' ? '▲ Top Lane' : '◆ Mid Lane'}</span>
+      </div>
+      <button class="expand-btn">Ver dicas detalhadas ↓</button>
+    </div>
+  `).join('');
+
+  grid.querySelectorAll('.matchup-card').forEach(card => {
+    card.addEventListener('click', () => openDetail(parseInt(card.dataset.id)));
+  });
+}
+
+function openDetail(id) {
+  const m = MATCHUPS.find(x => x.id === id);
+  if (!m) return;
+
+  document.getElementById('panel-header').innerHTML = `
+    <div class="panel-avatar">${m.name[0]}</div>
+    <div class="panel-title-area">
+      <p class="panel-champ-name">${m.name}</p>
+      <div class="panel-meta">
+        <span class="difficulty-badge ${getBadgeClass(m.difficulty)}">${getBadgeLabel(m.difficulty)}</span>
+        <span style="font-size:11px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase">${m.role}</span>
+        <span style="font-size:11px; letter-spacing:1px; text-transform:uppercase; color:${m.lane === 'top' ? '#9b6ee0' : '#8a7040'}">${m.lane === 'top' ? '▲ Top Lane' : '◆ Mid Lane'}</span>
+      </div>
+    </div>
+    <button class="close-btn" id="close-btn">✕</button>
+  `;
+
+  document.getElementById('panel-body').innerHTML = `
+    <div class="tip-block">
+      <p class="section-heading">⛓ Dicas de Lane</p>
+      ${m.tips.map(t => `
+        <div class="tip-item">
+          <div class="tip-bullet"></div>
+          <p><strong>${t.bold}</strong>${t.text}</p>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="tip-block">
+      <p class="section-heading">✦ Ultimate Roubada</p>
+      <div style="background:rgba(201,168,76,0.05); border:1px solid var(--border-subtle); border-radius:2px; padding:16px 18px; margin-bottom:16px;">
+        <p style="font-family:'Cinzel',serif; font-size:13px; color:var(--gold); margin-bottom:6px;">${m.ult}</p>
+        <p style="font-size:13px; line-height:1.65; color:#9e9688;">${m.ultValue}</p>
+      </div>
+    </div>
+
+    <div class="tip-block">
+      <p class="section-heading">◈ Habilidades Relevantes</p>
+      <div class="ability-grid">
+        ${m.abilities.map(a => `
+          <div class="ability-card">
+            <p class="ability-key">${a.key}</p>
+            <p class="ability-effect">${a.effect}</p>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="tip-block">
+      <p class="section-heading">◇ Power Spikes</p>
+      <div class="power-spike-row">
+        ${m.spikes.map(s => `<span class="spike-pill spike-${s.type}">${s.label}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="tip-block">
+      <p class="section-heading">△ Fraquezas do Inimigo</p>
+      <div style="display:flex; flex-wrap:wrap; gap:8px;">
+        ${m.weakness.map(w => `<span class="tip-tag">${w}</span>`).join('')}
+      </div>
+    </div>
+
+    <div style="margin-top:24px; padding:14px 18px; background:rgba(201,168,76,0.04); border:1px solid var(--border-subtle); border-radius:2px;">
+      <p style="font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--gold-dim); margin-bottom:6px;">Runas Recomendadas</p>
+      <p style="font-size:14px; color:var(--text-main);">${m.runes}</p>
+    </div>
+  `;
+
+  const overlay = document.getElementById('overlay');
+  overlay.classList.add('open');
+  document.getElementById('close-btn').addEventListener('click', closeDetail);
+}
+
+function closeDetail() {
+  document.getElementById('overlay').classList.remove('open');
+}
+
+document.getElementById('overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('overlay')) closeDetail();
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeDetail();
+});
+
+document.getElementById('search-input').addEventListener('input', e => {
+  searchQuery = e.target.value.toLowerCase();
+  document.getElementById('sticky-search-input').value = e.target.value;
+  applyFilters();
+});
+
+document.getElementById('sticky-search-input').addEventListener('input', e => {
+  searchQuery = e.target.value.toLowerCase();
+  document.getElementById('search-input').value = e.target.value;
+  applyFilters();
+});
+
+document.querySelectorAll('.tag').forEach(tag => {
+  tag.addEventListener('click', () => {
+    const val = tag.dataset.filter;
+    if (laneFilters.includes(val)) {
+      document.querySelectorAll('.search-tags-group:nth-child(1) .tag').forEach(t => t.classList.remove('active'));
+      tag.classList.add('active');
+      activeLane = val;
+    } else if (diffFilters.includes(val)) {
+      document.querySelectorAll('.search-tags-group:nth-child(3) .tag').forEach(t => t.classList.remove('active'));
+      tag.classList.toggle('active');
+      activeDiff = tag.classList.contains('active') ? val : 'all';
+    } else if (classFilters.includes(val)) {
+      document.querySelectorAll('.search-tags-group:nth-child(5) .tag').forEach(t => t.classList.remove('active'));
+      tag.classList.toggle('active');
+      activeClass = tag.classList.contains('active') ? val : 'all';
+    }
+    applyFilters();
+  });
+});
+
+document.getElementById('sort-select').addEventListener('change', e => {
+  sortBy = e.target.value;
+  applyFilters();
+});
+
+const stickyNav = document.getElementById('sticky-nav');
+const scrollTopBtn = document.getElementById('scroll-top');
+const header = document.querySelector('header');
+
+window.addEventListener('scroll', () => {
+  const showSticky = window.scrollY > header.offsetHeight;
+  stickyNav.style.display = showSticky ? 'block' : 'none';
+  scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+});
+
+scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+applyFilters();
+</script>
+</body>
+</html>
